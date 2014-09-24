@@ -1,0 +1,20 @@
+{
+  "name": "and",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jobsamuel/and",
+  "authors": [
+    "Jobsamuel Núñez"
+  ],
+  "description": "A demo single page application built with AngularJS.",
+  "main": "/src/index.html",
+  "keywords": [
+    "demo",
+    "spa",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.2.25",
+    "angular-ui-router": "~0.2.11"
+  }
+}

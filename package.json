@@ -1,0 +1,31 @@
+{
+  "name": "and",
+  "version": "0.0.0",
+  "description": "A demo single page application built with AngularJS.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jobsamuel/and.git"
+  },
+  "keywords": [
+    "demo",
+    "spa",
+    "angularjs"
+  ],
+  "author": "Jobsamuel Núñez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jobsamuel/and/issues"
+  },
+  "homepage": "https://github.com/jobsamuel/and",
+  "dependencies": {
+    "express": "^4.9.4"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
