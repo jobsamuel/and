@@ -1,4 +1,6 @@
 <div class="business">
 	<h1> {{ business[biz].name }} </h1>
+	<a href="{{ business[biz].website }}"><h5> {{ business[biz].website }} </h5></a>
 	<img ng-src=" {{business[biz].logo}}">
+	<button ng-click="removeBiz(business[biz].name)">Delete</button>
 </div>
