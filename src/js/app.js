@@ -14,27 +14,80 @@ angular.module('and', ['ui.router'])
 
 }])
 
-.controller('mainController', ['$rootScope', '$scope', '$stateParams', function($rootScope, $scope, $stateParams) {
+.factory('database', ['$http', function($http) {
 
-	$scope.business = [
-		{name: "Facebook", type: "Internet", logo: "https://www.facebook.com/images/fb_icon_325x325.png"},
-		{name: "Tesla", type: "Automotive", logo: "http://www.unitonenine.com/assets/images/clients/client-logos-tesla.png"},
-		{name: "Samsung", type: "Consumer Electronics", logo: "http://2.bp.blogspot.com/-ur_gt6HXO0A/T3Cgkyz2gtI/AAAAAAAABI8/wABdxgpIYuY/s400/samsung.png"},
-		{name: "Apple", type: "Computers", logo: "http://www.logoeps.com/wp-content/uploads/2012/12/apple-classic-logo-vector.png"},
-		{name: "Square", type: "Payments", logo: "https://merchantplus-dinkuminteractiv.netdna-ssl.com/wp-content/uploads/2014/04/Square-logo.png"}
-	];
+	var factory = {};
 
-	$scope.biz = $stateParams.biz;
+	factory.findBusiness = function() {
+		return $http.get('http://127.0.0.1:3000/business').success(function(callback) {
+			return callback;
+		}).error(function(callback) {
+			return callback;
+		});
+	}
+
+	factory.addBusiness = function(data) {
+		return $http.post('http://127.0.0.1:3000/business', data).success(function(callback) {
+			return callback;
+		}).error(function(callback) {
+			return callback;
+		});
+	}
+
+	factory.removeBusiness = function(biz) {
+		return $http.delete('http://127.0.0.1:3000/business/' + biz).success(function(callback) {
+			return callback;
+		}).error(function(callback) {
+			return callback;
+		});
+	}
+
+	return factory; 
 
 }])
 
-.controller('addController', ['$rootScope', '$scope', function($rootScope, $scope) {
+.controller('mainController', ['$scope', '$state', '$stateParams', 'database', function($scope, $state, $stateParams, database) {
 
-	$scope.addNew = function(_name, _type, _logo) {
+	database.findBusiness().then(function(callback) {
+		console.log(callback);
+		$scope.business = callback.data;
+	});
 
-		var newBiz = {name: _name, type: _type, logo: _logo};
+	$scope.biz = $stateParams.biz;
+
+	$scope.removeBiz = function(biz) {
+	
+		var delBiz = confirm("Are your sure?");
+		if (delBiz == true) {
+			
+			database.removeBusiness(biz).then(function(callback) {
+				console.log(callback);
+				console.log("Business deleted!");
+			});
+
+			$state.go("home");
+
+		} else {
+			console.log("Cancelled.");
+		}
+	}
+
+}])
+
+.controller('addController', ['$scope', 'database', function($scope, database) {
+
+	$scope.addNew = function(_name, _industry, _website, _logo) {
+
+		var newBiz = {name: _name, industry: _industry, website: _website, logo: _logo};
 		
-		// TODO
+		database.addBusiness(newBiz).then(function(callback) {
+			console.log(callback);
+			if (callback.statusText === "OK") {
+				console.log("New business added!");
+			} else {
+				console.log("Something went wrong.");
+			}		
+		});
 	}
 	
 }]);
