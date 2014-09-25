@@ -1,11 +1,11 @@
 body {
 	padding: 0;
 	margin: 0;
-	border: 0; 
-	color: #585858;
+	border: 0;
+	background-color: #fafafa;
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	font-weight: 400;
-	background-color: #fafafa;
+	color: #585858;
 }
 		
 h1, h2, h5 {
@@ -26,7 +26,7 @@ img {
 .header {	 
 	font-size: 2em;
 	background-color: #fff;
-	text-align: center;		
+	text-align: center; 
 }
 
 #add {
