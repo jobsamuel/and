@@ -1,0 +1,11 @@
+<form>
+	<div class="row">	
+		<div class="small-10 medium-8 large 6 columns">		
+			<input type="text" ng-model="name" placeholder="{{ business[biz].name }}">
+			<input type="text" ng-model="industry" placeholder="{{ business[biz].industry }}">
+			<input type="text" ng-model="website" placeholder="{{ business[biz].website }}">
+			<input type="text" ng-model="logo" placeholder="{{ business[biz].logo }}">
+		</div>
+	</div>
+	<button class="button success" type="submit" ng-click="editBiz(name, industry, website, logo)">Edit</button>
+</form>

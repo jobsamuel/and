@@ -1,8 +1,14 @@
-<div>
-	<h1> New Business </h1>
-	<input ng-model="name" placeholder="Business name">
-	<input ng-model="industry" placeholder="Business industry">
-	<input ng-model="website" placeholder="Business website">
-	<input ng-model="logo" placeholder="Business logo url">
-	<button type="submit" ng-click="addNew(name, industry, website, logo)">Add</button>
-</div>
+<h1> New Business </h1>
+<form>
+	<div class="row">	
+		<div class="small-10 medium-8 large 6 columns">		
+			<input type="text" ng-model="name" placeholder="Business name">
+			<input type="text" ng-model="industry" placeholder="Business industry">
+			<input type="text" ng-model="website" placeholder="Business website">
+			<input type="text" ng-model="logo" placeholder="Business logo url">
+		</div>
+	</div>
+	<button class="button success" type="submit" ng-click="addNew(name, industry, website, logo)">Add</button>
+</form>
+
+	
