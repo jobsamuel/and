@@ -8,7 +8,9 @@ angular.module('and', ['ui.router'])
 
 		.state('add', {url: '/add', templateUrl: 'views/add.html', controller: 'addController'})
 
-		.state('business', {url: '/:biz', templateUrl: 'views/business.html', controller: 'mainController'});
+		.state('business', {url: '/:biz', templateUrl: 'views/business.html', controller: 'mainController'})
+
+		.state('edit', {url: '/:biz/edit', templateUrl: 'views/edit.html', controller: 'editController'});
 
 	$urlRouterProvider.otherwise('/');
 
@@ -28,6 +30,14 @@ angular.module('and', ['ui.router'])
 
 	factory.addBusiness = function(data) {
 		return $http.post('http://127.0.0.1:3000/business', data).success(function(callback) {
+			return callback;
+		}).error(function(callback) {
+			return callback;
+		});
+	}
+
+	factory.editBusiness = function(biz, data) {
+		return $http.put('http://127.0.0.1:3000/business/' + biz, data).success(function(callback) {
 			return callback;
 		}).error(function(callback) {
 			return callback;
@@ -84,6 +94,32 @@ angular.module('and', ['ui.router'])
 			console.log(callback);
 			if (callback.statusText === "OK") {
 				console.log("New business added!");
+			} else {
+				console.log("Something went wrong.");
+			}		
+		});
+	}
+	
+}])
+
+.controller('editController', ['$scope', '$stateParams', 'database', function($scope, $stateParams, database) {
+
+	database.findBusiness().then(function(callback) {
+		console.log(callback);
+		$scope.business = callback.data;
+	});
+
+	$scope.biz = $stateParams.biz;
+
+	$scope.editBiz = function(_name, _industry, _website, _logo) {
+
+		var bizName = $scope.business[$scope.biz].name;
+		var updatedBiz = {name: _name, industry: _industry, website: _website, logo: _logo};
+		
+		database.editBusiness(bizName, updatedBiz).then(function(callback) {
+			console.log(callback);
+			if (callback.statusText === "OK") {
+				console.log("Business updated!");
 			} else {
 				console.log("Something went wrong.");
 			}		
