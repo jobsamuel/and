@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="and">
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" ng-app="and">
 <head>
+	<meta chartset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>and</title>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400, 800' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="vendor/foundation/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="vendor/foundation/css/foundation.css">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
 	<script src="vendor/angular/angular.min.js"></script>
@@ -10,13 +13,29 @@
 	<script src="js/app.js"></script>
 </head>
 <body>
+  	<!-- Header -->
+	<nav class="top-bar" data-topbar role="navigation">
+	  <ul class="title-area">
+	    <li class="name">
+	      <h1><a ui-sref="home">Business</a></h1>
+	  	</li>
+	  </ul>
+	  <section class="top-bar-section">
+	    <!-- Right Nav Section -->
+	    <ul class="right">
+	      <li class="active"><a ui-sref="add">Add new</a></li>
+	    </ul>
+	  </section>
+	</nav>
+	<!-- Content -->
 	<div class="row">
-		<div class="small-8 small-centered medium-6 medium-centered large-4 large-centered columns">
-			<a ui-sref="home"><h1>Business <a ui-sref="add"><small id="add">+</small></a> </h1></a>	
+		<div class="small-12 medium-12 large-12 columns" ui-view></div>
+	</div>
+	<!-- Footer -->
+	<footer class="row">
+		<div class="large-4 large-centered columns">
+			<p> <a href="http://opensource.org/licenses/MIT">MIT License</a> © <a href="https://twitter.com/jobsamuel">Jobsamuel Núñez</a></p>
 		</div>
-	</div>
-	<div class="row">
-		<div class="small-8 medium-6 large-4 columns content" ui-view></div>
-	</div>
+	</footer>
 </body>
 </html>

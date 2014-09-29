@@ -59,40 +59,51 @@ angular.module('and', ['ui.router'])
 .controller('mainController', ['$scope', '$state', '$stateParams', 'database', function($scope, $state, $stateParams, database) {
 
 	database.findBusiness().then(function(callback) {
-		console.log(callback);
-		$scope.business = callback.data;
+		if (callback.statusText === "OK") {
+			$scope.business = callback.data;
+			console.log("Business fetched!");
+		} else {
+			console.log("Something went wrong.");
+		}
 	});
 
 	$scope.biz = $stateParams.biz;
 
 	$scope.removeBiz = function(biz) {
-	
+
 		var delBiz = confirm("Are your sure?");
 		if (delBiz == true) {
 			
 			database.removeBusiness(biz).then(function(callback) {
-				console.log(callback);
-				console.log("Business deleted!");
+				if (callback.statusText === "OK") {
+					$state.transitionTo($state.current, $stateParams, {
+					    reload: true,
+					    inherit: false,
+					    notify: true
+					});
+					console.log("Business deleted!");
+				} else {
+					console.log("Something went wrong.");
+				}	
+
 			});
 
-			$state.go("home");
-
 		} else {
-			console.log("Cancelled.");
+			console.log("Operation cancelled.");
 		}
 	}
 
 }])
 
-.controller('addController', ['$scope', 'database', function($scope, database) {
+.controller('addController', ['$scope', '$state', 'database', function($scope, $state, database) {
 
 	$scope.addNew = function(_name, _industry, _website, _logo) {
 
 		var newBiz = {name: _name, industry: _industry, website: _website, logo: _logo};
 		
 		database.addBusiness(newBiz).then(function(callback) {
-			console.log(callback);
 			if (callback.statusText === "OK") {
+				$state.go("home");
 				console.log("New business added!");
 			} else {
 				console.log("Something went wrong.");
@@ -102,11 +113,19 @@ angular.module('and', ['ui.router'])
 	
 }])
 
-.controller('editController', ['$scope', '$stateParams', 'database', function($scope, $stateParams, database) {
+.controller('editController', ['$scope', '$state', '$stateParams', 'database', function($scope, $state, $stateParams, database) {
 
 	database.findBusiness().then(function(callback) {
-		console.log(callback);
-		$scope.business = callback.data;
+		if (callback.statusText === "OK") {
+			$scope.business = callback.data;
+			$scope.name = $scope.business[$scope.biz].name;
+			$scope.industry = $scope.business[$scope.biz].industry;
+			$scope.website = $scope.business[$scope.biz].website;
+			$scope.logo = $scope.business[$scope.biz].logo;
+			console.log("Business fetched!");
+		} else {
+			console.log("Something went wrong.");
+		}
 	});
 
 	$scope.biz = $stateParams.biz;
@@ -117,8 +136,8 @@ angular.module('and', ['ui.router'])
 		var updatedBiz = {name: _name, industry: _industry, website: _website, logo: _logo};
 		
 		database.editBusiness(bizName, updatedBiz).then(function(callback) {
-			console.log(callback);
 			if (callback.statusText === "OK") {
+				$state.go("home");
 				console.log("Business updated!");
 			} else {
 				console.log("Something went wrong.");

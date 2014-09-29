@@ -1,4 +1,10 @@
-<div ng-repeat="biz in business">
-	<a ui-sref="business({biz: $index})"><h2> {{ biz.name }} </h2></a>
-	<h5> {{ biz.industry }} </h5>
+<div class="row content" ng-repeat="biz in business">
+	<div class="large-3 columns">
+		<a href="{{ biz.website }}"><img src="{{ biz.logo }}"></a>
+	</div>
+	<div class="large-9 columns">
+		<a href="{{ biz.website }}"><h2> {{ biz.name }} </h2></a>
+		<button class="button tiny alert radius" ng-click="removeBiz(biz.name)">Delete</button>
+		<button class="button tiny radius" ui-sref="edit({biz: $index})">Edit</button>
+	</div>
 </div>
